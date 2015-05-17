@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Profile
-from .forms import signupform,loginform
+from .forms import signupform,loginform,passwordform
 #from django.core.urlresolvers import reverse
 #from django.http import HttpResponseRedirect
 
@@ -43,8 +43,8 @@ def changepass(request,pk=None):
 		user=get_object_or_404(Profile,pk=pk)
 		if request.method=="POST":
 			form=passwordform(request.POST)
-			data=form.cleaned_data
-			user.password=data['new_pass']
+			user.password=form.cleaned_data['new_pass']
+			user.save()
 			return redirect('home', pk=user.pk)
 		else:
 			form=passwordform()

@@ -31,7 +31,9 @@
 				<tr>
 					<td><a href="{% url 'login.views.home'  %}">SIGN OUT</a></td>
 				</tr>
-
+				<tr>
+					<td><a href="{% url 'login.views.changepass' pk=user.pk %}">CHANGE PASSWORD</a></td>
+				</tr>
 			{% else %}
 			
 				<tr>
