@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Profile</title>
+<!--    <script>
+            function check()
+            { var x=document.forms["input"]["enroll"];
+                      for(i=0;i<x.length;i++)
+                            { if(x[i]>"9" || x[i]<"0")
+                               { alert("Enrollment number must not contain characters");
+                                       return false;
+                               }                                                               
+                             }
+                  x=document.forms["input"]["branch"];
+                  if(x=="none")
+                    { alert("select a branch!");
+                          return false;
+                                                                                            }
+            }
+      </script> -->
+	</head>
+	<body style="text-align:center; margin:auto; background-color:green">
+
+
+ 		<form method="POST" class="signup-form">{% csrf_token %}
+        		{{ form.as_p }}
+        		<button type="submit" class="save btn btn-default">Register</button>
+    		</form>
+
+
+	<!--	PROFILE
+		<form onsubmit="return check()" name="input" action="profile_add.php" method="POST" enctype="multipart/form-data" multiple>
+			<table style="margin:auto; background-color:red; opacity:0.6">
+				<tbody>
+					<tr>
+						<td>Name*:</td>
+						<td><input type="text" name="name" placeholder="NAME"/></td>
+					</tr>
+					<tr>
+						<td>Username:</td>
+						<td><input type="text" name="username" placeholder="Username"/></td>
+					</tr>
+					<tr>
+						<td>Password:</td>
+						<td><input type="password" name="password" placeholder="Password"/> </td>	
+				          </tr>
+					<tr> 
+                          			<td>E-Mail*:</td>
+                         			<td><input type="email" name="email" placeholder="E-Mail"></td>
+                     			</tr>
+                     			<tr>
+                         			<td>Enrollment-Number*:</td>
+                         			<td><input type="text" name="enroll" placeholder="Enrollment Number"></td>
+                     			</tr>
+                     			<tr>
+                         			<td> Branch*:</td>
+                         			<td><select name="branch" >
+                            				<option value="none" selected>Select your branch</option>
+                            				<option value="Electrical">Electrical</option>
+                            				<option value="Mechanical">Mechanical</option>
+                          				  <option value="Civil">Civil</option>
+                            				<option value="E&C">Electronics & Communication</option>
+                            				<option value="other">Others</option>
+                             			   </select><td>
+                      			</tr>
+                      			<tr>
+                             			<td> Gender :</td>
+                             			<td><input type="radio" name="gender" value="male" checked>Male
+                                 		    <input type="radio" name="gender" value="female">Female</td>
+                       			</tr>
+                       			<tr>
+                            			<td> About :</td> 
+                            			<td><textarea  name="about" />
+                                			</textarea></td>
+                       			</tr>
+					<tr>
+						<td>Cover pic:</td>
+						<td><input type="file" name="cover"></td>
+					</tr>
+					<tr>
+						<td>Display pic:</td>
+						<td><input type="file" name="dp"></td>
+					</tr>
+				</tbody>
+			</table>
+                        <input type="submit" value="SUBMIT" name="submit"/>
+                 </form>
+<a href="main_page.php"><img src="http://logos.co/1024/royalty-free-home-page-icon-logo-by-seamartini-graphics-3501.jpg" width="50" height="50px"/></a>
+-->
+                 </body>
+		
+</html>

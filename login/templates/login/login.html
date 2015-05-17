@@ -1,0 +1,57 @@
+<html>
+     <head> 
+          <title> login page </title>
+         <script>
+         </script>
+          <style>
+              body
+              { border:5px solid green;
+                margin: 200px 300px;
+                text-align: center;
+                padding : 200px 50px;
+                background-image: url("http://mama-beach.com/mama2/wp-content/uploads/2013/07/photodune-4088822-beauty-beach-and-limestone-rocks-l.jpg");
+                background-size: 100%;
+                background-repeat:no-repeat;
+ 		color:white;
+		}
+ 	            table
+            { text-align:center;
+              margin:auto;
+              text-decoration:none;
+            }
+          </style>
+     </head>
+
+
+   <body>
+       <h1>LOGIN</h1>
+	<form method="POST" class="login-form"> {% csrf_token %}
+		{{ form.as_p }}
+		<button type="submit" class="save btn btn-default">Login</button>
+	</form>
+         <!-- <form action="profile.php" method="POST">
+              <table >
+                    <tbody>
+                          <tr style="font-weight:bold"> 
+                               <td>USERNAME:</td>
+                               <td> <input type="text" name="username" /> </td>
+                          </tr>
+                          <tr style="font-weight:bold">
+                               <td>PASSWORD:</td>
+                               <td> <input type="password" name="password" /> </td>
+                          </tr>
+		          <tr>
+				                        <td colspan="2"><input type="submit" value="LOGIN" name="submit"/></td>
+                          </tr>
+                          <tr style="background-color: green ; text-align:center">
+                                <td colspan="2"><a href="signup.php">Not registered?</a></td>
+                          </tr>
+        
+                    </tbody>
+              </table>
+          </form>
+          <a href="main_page.php"><img src="http://logos.co/1024/royalty-free-home-page-icon-logo-by-seamartini-graphics-3501.jpg" width="50" height="50px"/></a>
+    -->
+	</body>
+</html>
+

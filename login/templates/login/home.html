@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>Main Page</title>
+		<style>
+      body
+      { background-image: url("http://www.psdgraphics.com/file/colorful-triangles-background.jpg");
+        background-size: 100% ;
+        background-repeat:no-repeat;
+      }
+			table
+			{ background-color:black;
+        opacity:0.7;
+        
+			   font-weight:bold;
+			  text-align:center;
+			  margin: 200px auto;
+			  border: 5px solid white;
+			  padding: 50px;
+			}
+		</style>
+	</head>
+	<body>
+		<table>
+			<tbody>
+			
+			{% if user.pk %}
+			       	<tr>
+					<td><a href="{% url 'login.views.profile' pk=user.pk %}">PROFILE</a></td>
+				</tr>
+				<tr>
+					<td><a href="{% url 'login.views.home'  %}">SIGN OUT</a></td>
+				</tr>
+
+			{% else %}
+			
+				<tr>
+					<td><a href="{% url 'login.views.login' %}">LOGIN</a></td>
+				</tr>
+				<tr>
+					<td><a href="{% url 'login.views.signup' %}">SIGN UP</a></td>
+				</tr>
+			{% endif %}
+
+			
+			
+			</tbody>
+		</table>
+	</body>
+</html>
