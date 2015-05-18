@@ -10,8 +10,10 @@ def login(request):
 		if form.is_valid() :
 			data=form.cleaned_data
 			details=get_object_or_404(Profile, username=data['username'])
-			return redirect('home', pk=details.pk)
-
+			if details.password == data['password']:
+				return redirect('home', pk=details.pk)
+			else:
+				return redirect('login')
 	else:
 		form=loginform()
 	return render(request, 'login/login.html',{'form': form})
@@ -43,9 +45,15 @@ def changepass(request,pk=None):
 		user=get_object_or_404(Profile,pk=pk)
 		if request.method=="POST":
 			form=passwordform(request.POST)
-			user.password=form.cleaned_data['new_pass']
-			user.save()
-			return redirect('home', pk=user.pk)
+			if form.is_valid():
+				if user.password==form.cleaned_data['password']:
+					user.password=form.cleaned_data['new_pass']
+					user.save()
+					return redirect('home', pk=user.pk)
+				else:
+					return redirect('changepass',pk=user.pk)
+			else:
+				return redirect('changepass',pk=user.pk)
 		else:
 			form=passwordform()
 			return render(request, 'login/change_password.html', {'form':form})

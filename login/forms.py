@@ -9,9 +9,8 @@ class signupform(forms.ModelForm):
 	class Meta:
 		model=Profile
 		fields=('name','username','password','gender','email','branch','about',)
-class passwordform(forms.ModelForm):
+class passwordform(forms.Form):
+	password=forms.CharField(widget=forms.PasswordInput())
 	new_pass=forms.CharField(widget=forms.PasswordInput())
-	class Meta:
-		model=Profile
-		fields=['password']
+	
 		
