@@ -5,12 +5,12 @@
 	        <style>
 			body
 			{  color:red; 
-			   background-image:url("'.$result["cover_file"].'");
-         background-repeat:no-repeat;
-         background-size:100% 100%;
+			   background-image:url('{{ details.cover_pic.url }}');
+         		background-repeat:no-repeat;
+         		background-size:100% 100%;
          }
       table
-			{ background-image : url("'.$result["display_file"].'");
+			{ background-image : url('{{ details.profile_pic.url }}');
 			  background-size: 100% 100%;
         margin: 100px auto;
 			  border: 20px outset yellow;
@@ -34,7 +34,7 @@
     	   <table>
                 <thead>
                           <tr>
-                              <th colspan="2" style="font-style:italic; font-size:200%"> Hello {{details.name}}</th>
+                              <th colspan="2" style="font-style:italic; font-size:200%"> Hello {{user.name}}</th>
                           </tr>
                       	  <tr>
 			       <th colspan="2" style="font-weight:bolder; font-size: 200%">Details</th>
@@ -43,15 +43,15 @@
 		<tbody style="font-style:italic font-size:100%">
 			<tr>
 				<td>Username:</td>
-				<td>{{details.username}}</td>
+				<td>{{user.username}}</td>
 			</tr>
 			<tr>
 				<td>E-Mail:</td>
-				<td>{{details.email}}</td>
+				<td>{{user.email}}</td>
                         </tr>
 			<tr>
 				<td>Gender:</td>
-				<td>{{details.gender}}</td>
+				<td>{{user.gender}}</td>
 			</tr>
 			<!--<tr>
 				<td>Enrollment No.:</td>
@@ -59,11 +59,11 @@
 			</tr>-->
 			<tr>
 				<td>About:</td>
-				<td>{{details.about}}</td>
+				<td>{{user.about}}</td>
 			</tr>
 		</tbody>
 	    </table>
-  <center><a href="{% url 'login.views.home' pk=details.pk %}"><img src="http://logos.co/1024/royalty-free-home-page-icon-logo-by-seamartini-graphics-3501.jpg" width="50" height="50px"/></a></center>
+  <center><a href="{% url 'login.views.home' %}"><img src="http://logos.co/1024/royalty-free-home-page-icon-logo-by-seamartini-graphics-3501.jpg" width="50" height="50px"/></a></center>
      
   </body>
 </html>

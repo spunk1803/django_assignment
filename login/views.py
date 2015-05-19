@@ -1,62 +1,58 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Profile
-from .forms import signupform,loginform,passwordform
-#from django.core.urlresolvers import reverse
-#from django.http import HttpResponseRedirect
-
+from .forms import SignupForm,LoginForm,PasswordForm
 def login(request):
 	if request.method=="POST":
-		form=loginform(request.POST)
+		form=LoginForm(request.POST)
 		if form.is_valid() :
 			data=form.cleaned_data
-			details=get_object_or_404(Profile, username=data['username'])
-			if details.password == data['password']:
-				return redirect('home', pk=details.pk)
+			user=get_object_or_404(Profile, username=data['username'])
+			if user.password == data['password']:
+				request.session['username']=user.username
+				return redirect('home')
 			else:
 				return redirect('login')
 	else:
-		form=loginform()
+		form=LoginForm()
 	return render(request, 'login/login.html',{'form': form})
-def home(request, pk=None):
-	if pk:
-		user=get_object_or_404(Profile,pk=pk)
-	else:
-		user=Profile()
-	return render(request, 'login/home.html', {'user':user})
-	
+def home(request):
+	return render(request, 'login/home.html', {})	
+def signout(request):
+	del request.session['username']
+	return redirect('home')
 def signup(request):
 	if request.method=="POST":
-		form=signupform(request.POST)
+		form=SignupForm(request.POST,request.FILES)
 		if form.is_valid():
 			profile=form.save()
 			profile.save()
-			return redirect('login.views.home', pk=profile.pk)
+			return redirect('login.views.home')
 	else:
-		form=signupform()
+		form=SignupForm()
 	return render(request, 'login/signup.html',{'form':form} )
-def profile(request,pk=None):
-	if pk:
-		details=get_object_or_404(Profile,pk=pk)
-		return render(request, 'login/profile.html', {'details':details})
+def profile(request):
+	if request.session['username']:
+		user=get_object_or_404(Profile,username=request.session['username'])
+		return render(request, 'login/profile.html', {'user': user})
 	else:
 		return redirect('login.views.login')
-def changepass(request,pk=None):
-	if pk:
-		user=get_object_or_404(Profile,pk=pk)
+def changepass(request):
+	if request.session['username']:
+		user=get_object_or_404(Profile,username=request.session['username'])
 		if request.method=="POST":
-			form=passwordform(request.POST)
+			form=PasswordForm(request.POST)
 			if form.is_valid():
 				if user.password==form.cleaned_data['password']:
 					user.password=form.cleaned_data['new_pass']
 					user.save()
-					return redirect('home', pk=user.pk)
+					return redirect('home')
 				else:
-					return redirect('changepass',pk=user.pk)
+					return redirect('changepass')
 			else:
-				return redirect('changepass',pk=user.pk)
+				return redirect('changepass')
 		else:
-			form=passwordform()
+			form=PasswordForm()
 			return render(request, 'login/change_password.html', {'form':form})
 	else:
 		return redirect('login.views.home')
-		
+

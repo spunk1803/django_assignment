@@ -22,7 +22,7 @@
 	<body style="text-align:center; margin:auto; background-color:green">
 
 
- 		<form method="POST" class="signup-form">{% csrf_token %}
+ 		<form method="POST" class="signup-form" enctype="multipart/form-data">{% csrf_token %}
         		{{ form.as_p}}
         		<button type="submit" class="save btn btn-default">Register</button>
     		</form>

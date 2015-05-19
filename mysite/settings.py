@@ -23,7 +23,10 @@ SECRET_KEY = '1xx(8i=eisg@vo)h!-l#vtvb&0gew2htw75m1^d@)^s21&s8ew'
 DEBUG = True
 
 TEMPLATE_DEBUG = True
-
+TEMPLATE_CONTEXT_PROCESSORS = (
+    'django.core.context_processors.request',
+    'django.contrib.auth.context_processors.auth',
+)
 ALLOWED_HOSTS = []
 
 
@@ -82,3 +85,6 @@ USE_TZ = False
 # https://docs.djangoproject.com/en/1.7/howto/static-files/
 
 STATIC_URL = '/static/'
+
+MEDIA_ROOT='/home/spunk/mysite/login/photos/'
+MEDIA_URL='/photos/'

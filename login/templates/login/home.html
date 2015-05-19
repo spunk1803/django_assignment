@@ -24,15 +24,15 @@
 		<table>
 			<tbody>
 			
-			{% if user.pk %}
+			{% if request.session.username %}
 			       	<tr>
-					<td><a href="{% url 'login.views.profile' pk=user.pk %}">PROFILE</a></td>
+					<td><a href="{% url 'login.views.profile' %}">PROFILE</a></td>
 				</tr>
 				<tr>
-					<td><a href="{% url 'login.views.home'  %}">SIGN OUT</a></td>
+					<td><a href="{% url 'login.views.signout'  %}">SIGN OUT</a></td>
 				</tr>
 				<tr>
-					<td><a href="{% url 'login.views.changepass' pk=user.pk %}">CHANGE PASSWORD</a></td>
+					<td><a href="{% url 'login.views.changepass' %}">CHANGE PASSWORD</a></td>
 				</tr>
 			{% else %}
 			

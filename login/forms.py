@@ -1,15 +1,15 @@
 from django import forms
 from .models import Profile
 
-class loginform(forms.ModelForm):
+class LoginForm(forms.ModelForm):
 	class Meta:
 		model=Profile
 		fields=['username','password']
-class signupform(forms.ModelForm):
+class SignupForm(forms.ModelForm):
 	class Meta:
 		model=Profile
-		fields=('name','username','password','gender','email','branch','about',)
-class passwordform(forms.Form):
+		fields=('name','username','password','gender','email','branch','about','profile_pic','cover_pic',)
+class PasswordForm(forms.Form):
 	password=forms.CharField(widget=forms.PasswordInput())
 	new_pass=forms.CharField(widget=forms.PasswordInput())
 	
