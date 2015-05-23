@@ -36,6 +36,16 @@ def profile(request):
 		return render(request, 'login/profile.html', {'user': user})
 	else:
 		return redirect('login.views.login')
+def update(request):
+	if request.method=='POST':
+		user=SignupForm(request.POST)
+		if form.is_valid():
+			profile=user.save()
+			profile.save()
+			return redirect('home')
+	else:
+		user=get_object_or_404(Profile, username=request.session['username'])
+	return render(request, 'login/update.html', {'user':user})
 def changepass(request):
 	if request.session['username']:
 		user=get_object_or_404(Profile,username=request.session['username'])

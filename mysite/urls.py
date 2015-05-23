@@ -9,6 +9,7 @@ urlpatterns = [
     #url(r'^admin/', include(admin.site.urls)),
     #url(r'^login/', include(login.urls)),
     url(r'', include('login.urls')),
+    url(r'^polls/', include('polls.urls', namespace="polls")),	
     #url(r'^profile/', include(login.urls)),
     url(r'^admin/', include(admin.site.urls)),
 ]
