@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from contacts.models import Contact
-from django.views.generic import ListView, CreateView, UpdateView
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
 import forms
 class ListContactView(ListView):
 	model=Contact
