@@ -42,6 +42,7 @@ INSTALLED_APPS = (
     'login',
     'polls',
     'contacts',
+    'login_new',
 )
 
 MIDDLEWARE_CLASSES = (

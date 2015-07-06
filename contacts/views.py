@@ -10,7 +10,7 @@ class ListContactView(ListView):
 class CreateContactView(CreateView):
 
     model = Contact
-    template_name = 'edit_contact.html'
+    template_name = 'new_contact.html'
     form_class=forms.ContactForm
 
     def get_success_url(self):
@@ -19,17 +19,9 @@ class CreateContactView(CreateView):
     def get_context_data(self, **kwargs):
 
         context = super(CreateContactView, self).get_context_data(**kwargs)
-        context['action'] = reverse('contacts-new')
+#        context['action'] = reverse('contacts-new')
 
         return context
-
-class EditContactView(UpdateView):
-	model=Contact
-	template_name='edit_contact'
-        form_class=forms.ContactForm
-
-	def get_success_url(self):
-		return reverse('contacts-list')
 
 class UpdateContactView(UpdateView):
 
