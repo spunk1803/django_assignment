@@ -48,7 +48,15 @@ class LogoutView(View):
 		return reverse('home')
 
 class HomeView(View):
-	model=Profile
+	
 	template_name='home.html'
 	def get_success_url(self):
 		return reverse('home')
+	def get_context_data(self, **kwargs,request):
+		context=super(HomeView,self).get_context_data(**kwargs)
+		if request.session['user']:
+			context['status']=True
+		else:
+			context['status']=False
+		return context
+		
