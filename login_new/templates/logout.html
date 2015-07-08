@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+	<h1>LOGOUT</h1>
+	<form action="{% url 'logout'  pk=profie.id %}" method="POST">{% csrf_token %}
+		<input type='submit' value='logout?'/>
+		<a href="{% url 'home' %}">Return</a>
+	</form>
+{% endblock %}

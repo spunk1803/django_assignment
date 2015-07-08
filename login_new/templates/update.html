@@ -1,0 +1,6 @@
+{% extends "base.html" %}
+{% block content %}
+<form action="{% url 'update' pk=profile.id %}" method="POST">
+	{{ form.as_ul }}
+</form>
+{% endblock %}
