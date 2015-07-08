@@ -14,7 +14,7 @@ class CreateProfileView(CreateView):
 class UpdateProfileView(UpdateView):
 	model=Profile
 	template_name='update.html'
-	form_class=forms.ProfileForm
+	form_class=forms.UpdateForm
 	def get_success_url(self):
 		return reverse('home')
 
