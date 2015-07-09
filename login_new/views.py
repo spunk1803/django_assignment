@@ -48,7 +48,7 @@ class LogoutView(View):
 		return reverse('home')
 
 class HomeView(View):
-	
+	model=Profile
 	template_name='home.html'
 	def get_success_url(self):
 		return reverse('home')
