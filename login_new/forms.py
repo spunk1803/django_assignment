@@ -13,7 +13,7 @@ class LoginForm(forms.ModelForm):
 class UpdateForm(forms.ModelForm):
 	name=forms.CharField(max_length=30, widget=forms.TextInput(attrs={'readonly':'readonly'}))
 	email=forms.EmailField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
-	gender=forms.TextField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
+	gender=forms.CharField(widget=forms.TextInput(attrs={'readonly':'readonly'}))
 	class Meta:
 		model=Profile
-		fields=['username','password','brancj','about']
+		fields=['username','password','branch','about']
