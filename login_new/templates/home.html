@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if status: %}
+{% if status==True : %}
 	<a href="{% url 'profile' pk=profile.id %}">Profile</a>
 	<a href="{% url 'update' pk=profile.id %}">Update</a>
 	<a href="{% url 'logout' pk=profile.id %}">Logout</a>

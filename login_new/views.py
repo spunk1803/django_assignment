@@ -7,7 +7,6 @@ from django.core.urlresolvers import reverse
 class CreateProfileView(CreateView):
 	model=Profile
 	template_name='signup.html' 
-	form_class=forms.ProfileForm
 	def get_success_url(self):
 		return reverse('home')
 
@@ -25,7 +24,8 @@ class ProfileView(DetailView):
 class LoginView(CreateView):
 	model=Profile
 	template_name='login.html'
-	form_class=forms.LoginForm
+	fields=['username','password']
+#	form_class=forms.LoginForm
 #	def get_success_url(self):
 	def post(self,request):
 		form=forms.LoginForm(request.POST)
