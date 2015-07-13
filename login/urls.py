@@ -10,5 +10,5 @@ urlpatterns=[
 #	url(r'^home/$', 'login.views.home', name='home'),
 	url(r'^change/', 'login.views.changepass', name='changepass'),
 	url(r'^signout/$','login.views.signout',name='signout'),
-	url(r'^/update/$','login.views.update',name='update')
+	url(r'^update/$',views.update,name='update')
 ]

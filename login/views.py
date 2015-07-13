@@ -41,8 +41,7 @@ def update(request):
 	if request.method=='POST':
 		form=SignupForm(request.POST)
 		if form.is_valid():
-			profile=form.save()
-			user=profile
+			user=form.cleaned_data
 			user.save()
 			return redirect('home')
 		else:

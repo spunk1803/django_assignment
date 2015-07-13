@@ -1,5 +1,5 @@
-from django.shortcuts import render, get_object_or_404
-from django.views.generic import DetailView, CreateView, UpdateView, View
+from django.shortcuts import render, get_object_or_404, redirect
+from django.views.generic import DetailView, CreateView, UpdateView, TemplateView, View
 from .models import Profile
 import forms
 from django.core.urlresolvers import reverse
@@ -21,37 +21,36 @@ class ProfileView(DetailView):
 	model=Profile
 	template_name='profile.html'
 
-class LoginView(CreateView):
-	model=Profile
+class LoginView(View):
+#	model=Profile
 	template_name='login.html'
-	fields=['username','password']
+	form_class=forms.LoginForm
 #	form_class=forms.LoginForm
 #	def get_success_url(self):
-	def post(self,request):
-		form=forms.LoginForm(request.POST)
+	def post(self,request, *args, **kwargs):
+		form=self.form_class(request.POST)
 		if form.is_valid():
 			data=form.cleaned_data
 			user=get_object_or_404(Profile,data['username'])
 			if user.password == data['password']:
 				request.session['user']=user.username
-				return reverse('home')
+				return redirect('home')
 			else:
-				return reverse('login')
-		else:
-			return reverse('login')		
+				return redirect('login')
+		return render(request, self.template_name, {'form': form})
 
-class LogoutView(View):
-	model=Profile
+class LogoutView(TemplateView):
+#	model=Profile
 	template_name='logout.html'
 	def get_success_url(self,request):
 		del request.session['user']
 		return reverse('home')
 
-class HomeView(View):
-	model=Profile
+class HomeView(TemplateView):
+#	model=Profile
 	template_name='home.html'
-	def get_success_url(self):
-		return reverse('home')
+#	def get_success_url(self):
+#		return reverse('home')
 	def get_context_data(self, **kwargs):
 		context=super(HomeView,self).get_context_data(**kwargs)
 		if request.session['user']:
