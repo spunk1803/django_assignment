@@ -3,11 +3,13 @@ from django.views.generic import DetailView, CreateView, UpdateView, TemplateVie
 from .models import Profile
 import forms
 from django.core.urlresolvers import reverse
- 
+from django.contrib.auth.models import User 
 class CreateProfileView(CreateView):
 	model=Profile
 	template_name='signup.html' 
 	def get_success_url(self):
+		user=User.objects.create_user(username=self['username'],password=self['password'])
+		user.save()
 		return reverse('home')
 
 class UpdateProfileView(UpdateView):
@@ -31,19 +33,15 @@ class LoginView(View):
 		form=self.form_class(request.POST)
 		if form.is_valid():
 			data=form.cleaned_data
-			user=get_object_or_404(Profile,data['username'])
-			if user.password == data['password']:
-				request.session['user']=user.username
-				return redirect('home')
-			else:
-				return redirect('login')
-		return render(request, self.template_name, {'form': form})
+			user=authenticate(username=data['username'],password=data['password'])
+			if user is not None:
+				login(request,user)
 
 class LogoutView(TemplateView):
 #	model=Profile
 	template_name='logout.html'
 	def get_success_url(self,request):
-		del request.session['user']
+		logout(request)
 		return reverse('home')
 
 class HomeView(TemplateView):
