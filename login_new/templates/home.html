@@ -2,9 +2,9 @@
 {% block content %}
 
 {% if status==True : %}
-	<a href="{% url 'profile' pk=profile.id %}">Profile</a>
-	<a href="{% url 'update' pk=profile.id %}">Update</a>
-	<a href="{% url 'logout' pk=profile.id %}">Logout</a>
+	<a href="{% url 'profile' pk=user.id %}">Profile</a>
+	<a href="{% url 'update' pk=user.id %}">Update</a>
+	<a href="{% url 'logout' pk=user.id %}">Logout</a>
 {% else: %}
 	<a href="{% url 'login' %}">Login</a>
 	<a href="{% url 'signup' %}">SignUp</a>

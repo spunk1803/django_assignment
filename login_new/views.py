@@ -4,6 +4,8 @@ from .models import Profile
 import forms
 from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User 
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth import login,logout,authenticate
 class CreateProfileView(CreateView):
 	model=Profile
 	template_name='signup.html' 
@@ -11,18 +13,6 @@ class CreateProfileView(CreateView):
 		user=User.objects.create_user(username=self['username'],password=self['password'])
 		user.save()
 		return reverse('home')
-
-class UpdateProfileView(UpdateView):
-	model=Profile
-	template_name='update.html'
-	form_class=forms.UpdateForm
-	def get_success_url(self):
-		return reverse('home')
-
-class ProfileView(DetailView):
-	model=Profile
-	template_name='profile.html'
-
 class LoginView(View):
 #	model=Profile
 	template_name='login.html'
@@ -37,13 +27,6 @@ class LoginView(View):
 			if user is not None:
 				login(request,user)
 
-class LogoutView(TemplateView):
-#	model=Profile
-	template_name='logout.html'
-	def get_success_url(self,request):
-		logout(request)
-		return reverse('home')
-
 class HomeView(TemplateView):
 #	model=Profile
 	template_name='home.html'
@@ -51,9 +34,36 @@ class HomeView(TemplateView):
 #		return reverse('home')
 	def get_context_data(self, **kwargs):
 		context=super(HomeView,self).get_context_data(**kwargs)
-		if request.session['user']:
+		if request.user.is_authenticated():
 			context['status']=True
+			context['user']=request.user
 		else:
 			context['status']=False
 		return context
-		
+	
+@login_required
+class UpdateProfileView(UpdateView):
+	model=Profile
+	template_name='update.html'
+	form_class=forms.UpdateForm
+	def get_success_url(self):
+		return reverse('home')
+@login_required
+class ProfileView(DetailView):
+	model=Profile
+	template_name='profile.html'
+
+@login_required
+#class LogoutView(TemplateView):
+#	model=Profile
+#	template_name='logout.html'
+#	def logout_func(request):	
+#		logout(request)
+#		return reverse('home')
+#	logout_func(request)
+#	def get_success_url(self):
+#		return reverse('home')
+def LogoutView(request):
+	logout(request)
+	return reverse('home')
+	
