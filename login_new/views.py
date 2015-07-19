@@ -13,33 +13,51 @@ class CreateProfileView(CreateView):
 		user=User.objects.create_user(username=self['username'],password=self['password'])
 		user.save()
 		return reverse('home')
-class LoginView(View):
+#class LoginView(View):
 #	model=Profile
-	template_name='login.html'
-	form_class=forms.LoginForm
+#	template_name='login.html'
+#	form_class=forms.LoginForm
 #	form_class=forms.LoginForm
 #	def get_success_url(self):
-	def post(self,request, *args, **kwargs):
-		form=self.form_class(request.POST)
+#	def post(self,request, *args, **kwargs):
+#		form=self.form_class(request.POST)
+#		if form.is_valid():
+#			data=form.cleaned_data
+#			user=authenticate(username=data['username'],password=data['password'])
+#			if user is not None:
+#				login(request,user)
+
+def LoginView(request):
+	if request.method=="POST":
+		form=LoginForm(request.POST)
 		if form.is_valid():
 			data=form.cleaned_data
-			user=authenticate(username=data['username'],password=data['password'])
+			user=authenticate(username=data['username'], password=data['username'])
 			if user is not None:
-				login(request,user)
-
-class HomeView(TemplateView):
+				login(request, user)
+				return reverse('home')
+			else:
+				return reverse('login')
+#class HomeView(TemplateView):
 #	model=Profile
-	template_name='home.html'
+#	template_name='home.html'
 #	def get_success_url(self):
 #		return reverse('home')
-	def get_context_data(self, **kwargs):
-		context=super(HomeView,self).get_context_data(**kwargs)
-		if request.user.is_authenticated():
-			context['status']=True
-			context['user']=request.user
-		else:
-			context['status']=False
-		return context
+#	def get_context_data(self, **kwargs):
+#		context=super(HomeView,self).get_context_data(**kwargs)
+#		if request.user.is_authenticated():
+#			context['status']=True
+#			context['user']=request.user
+#		else:
+#			context['status']=False
+#		return context
+
+def HomeView(request):
+	if request.user.is_authenticated():
+		user=get_object_or_404(Profile, username=request.user['username'])
+	else:
+		user=None
+	return render(request, 'home.html', {'user':user})	
 	
 @login_required
 class UpdateProfileView(UpdateView):
