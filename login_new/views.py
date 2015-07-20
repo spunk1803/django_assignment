@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout,authenticate
+
 class CreateProfileView(CreateView):
 	model=Profile
 	template_name='signup.html' 
@@ -13,6 +14,7 @@ class CreateProfileView(CreateView):
 		user=User.objects.create_user(username=self['username'],password=self['password'])
 		user.save()
 		return reverse('home')
+
 #class LoginView(View):
 #	model=Profile
 #	template_name='login.html'
@@ -54,24 +56,24 @@ def LoginView(request):
 
 def HomeView(request):
 	if request.user.is_authenticated():
-		user=get_object_or_404(Profile, username=request.user['username'])
+		user=get_object_or_404(Profile, username=request.user.username)
 	else:
 		user=None
 	return render(request, 'home.html', {'user':user})	
 	
-@login_required
+#@login_required
 class UpdateProfileView(UpdateView):
 	model=Profile
 	template_name='update.html'
 	form_class=forms.UpdateForm
 	def get_success_url(self):
 		return reverse('home')
-@login_required
+#@login_required
 class ProfileView(DetailView):
 	model=Profile
 	template_name='profile.html'
 
-@login_required
+#@login_required
 #class LogoutView(TemplateView):
 #	model=Profile
 #	template_name='logout.html'
