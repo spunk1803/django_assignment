@@ -39,13 +39,13 @@ def profile(request):
 def update(request):
 	user=get_object_or_404(Profile,username=request.session['username'])
 	if request.method=='POST':
-		form=UpdateForm(request.POST)
+		form=UpdateForm(request.POST, request.FILES)
 		if form.is_valid():
 			data=form.cleaned_data
 			user.branch=data['branch']
 			user.about=data['about']
-#			user.profile_pic=data['profile_pic']
-#			user.cover_pic=data['cover_pic']
+			user.profile_pic=data['profile_pic']
+			user.cover_pic=data['cover_pic']
 			user.save()
 			return redirect('home')
 		else:

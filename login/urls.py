@@ -11,4 +11,5 @@ urlpatterns=[
 	url(r'^change/', 'login.views.changepass', name='changepass'),
 	url(r'^signout/$','login.views.signout',name='signout'),
 	url(r'^update/$',views.update,name='update')
+#	url(r'^media/(?P<path>.*)$', django.views.static.serve, {'document_root': settings.MEDIA_ROOT})
 ]
