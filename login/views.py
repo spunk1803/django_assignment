@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect,get_object_or_404
 from .models import Profile
-from .forms import SignupForm,LoginForm,PasswordForm
+from .forms import SignupForm,LoginForm,PasswordForm, UpdateForm
 def login(request):
 	if request.method=="POST":
 		form=LoginForm(request.POST)
@@ -39,16 +39,20 @@ def profile(request):
 def update(request):
 	user=get_object_or_404(Profile,username=request.session['username'])
 	if request.method=='POST':
-		form=SignupForm(request.POST)
+		form=UpdateForm(request.POST)
 		if form.is_valid():
-			user=form.cleaned_data
+			data=form.cleaned_data
+			user.branch=data['branch']
+			user.about=data['about']
+#			user.profile_pic=data['profile_pic']
+#			user.cover_pic=data['cover_pic']
 			user.save()
 			return redirect('home')
 		else:
 			return redirect('update')
 	else:
-		form=SignupForm()
-	return render(request, 'login/update.html', {'form':user})
+		form=UpdateForm(user.__dict__)
+	return render(request, 'login/update.html', {'form':form})
 def changepass(request):
 	if request.session['username']:
 		user=get_object_or_404(Profile,username=request.session['username'])

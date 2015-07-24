@@ -8,7 +8,7 @@ class Profile(models.Model):
 	gender=models.CharField(max_length=5)
 	branch=models.CharField(max_length=30)
 	about=models.TextField()
-	profile_pic=models.ImageField(upload_to='login/photos/')
-	cover_pic=models.ImageField(upload_to='login/photos/')
+#	profile_pic=models.ImageField(upload_to='login/photos/')
+#	cover_pic=models.ImageField(upload_to='login/photos/')
 
 
