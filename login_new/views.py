@@ -6,56 +6,41 @@ from django.core.urlresolvers import reverse
 from django.contrib.auth.models import User 
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import login,logout,authenticate
-
+from django.utils.decorators import method_decorator
 class CreateProfileView(CreateView):
 	model=Profile
 	template_name='signup.html' 
-	def get_success_url(self):
-		user=User.objects.create_user(username=self['username'],password=self['password'])
-		user.save()
-		return reverse('home')
-
-#class LoginView(View):
-#	model=Profile
-#	template_name='login.html'
-#	form_class=forms.LoginForm
-#	form_class=forms.LoginForm
-#	def get_success_url(self):
-#	def post(self,request, *args, **kwargs):
-#		form=self.form_class(request.POST)
-#		if form.is_valid():
-#			data=form.cleaned_data
-#			user=authenticate(username=data['username'],password=data['password'])
-#			if user is not None:
-#				login(request,user)
+	form_class=forms.SignupForm
+	def post(self,request, *args, **kwargs):
+		form=self.form_class(request.POST)
+		if form.is_valid():
+			data=form.cleaned_data
+			user=User.objects.create_user(username=data['username'],email=data['email'],password=data['password'])
+			user=form.save()
+			user.save()
+			
+			return redirect('home')
+		return render(request, self.template_name, {'form':form})
+	def get(self, request, *args, **kwargs):
+		form=self.form_class()
+		return render(request, self.template_name, {'form':form})
 
 def LoginView(request):
 	if request.method=="POST":
-		form=LoginForm(request.POST)
+		form=forms.LoginForm(request.POST)
 		if form.is_valid():
 			data=form.cleaned_data
 			user=authenticate(username=data['username'], password=data['username'])
 			if user is not None:
 				login(request, user)
-				return reverse('home')
+				return redirect('home')
 			else:
-				return reverse('login')
-#class HomeView(TemplateView):
-#	model=Profile
-#	template_name='home.html'
-#	def get_success_url(self):
-#		return reverse('home')
-#	def get_context_data(self, **kwargs):
-#		context=super(HomeView,self).get_context_data(**kwargs)
-#		if request.user.is_authenticated():
-#			context['status']=True
-#			context['user']=request.user
-#		else:
-#			context['status']=False
-#		return context
-
+				return redirect('login')
+	else:
+		form=forms.LoginForm()
+	return render(request, 'login.html', {'form':form})
 def HomeView(request):
-	if request.user.is_authenticated():
+	if request.user.is_authenticated() :
 		user=get_object_or_404(Profile, username=request.user.username)
 	else:
 		user=None
@@ -66,24 +51,20 @@ class UpdateProfileView(UpdateView):
 	model=Profile
 	template_name='update.html'
 	form_class=forms.UpdateForm
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+        	return super(UpdateProfileView, self).dispatch(*args, **kwargs)	
 	def get_success_url(self):
 		return reverse('home')
 #@login_required
 class ProfileView(DetailView):
 	model=Profile
 	template_name='profile.html'
-
-#@login_required
-#class LogoutView(TemplateView):
-#	model=Profile
-#	template_name='logout.html'
-#	def logout_func(request):	
-#		logout(request)
-#		return reverse('home')
-#	logout_func(request)
-#	def get_success_url(self):
-#		return reverse('home')
+	@method_decorator(login_required)
+	def dispatch(self, *args, **kwargs):
+        	return super(ProfileView, self).dispatch(*args, **kwargs)	
+@login_required
 def LogoutView(request):
 	logout(request)
-	return reverse('home')
+	return redirect('home')
 	

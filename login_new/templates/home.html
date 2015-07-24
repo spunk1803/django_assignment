@@ -1,7 +1,7 @@
 {% extends "base.html" %}
 {% block content %}
 
-{% if user is not None : %}
+{% if user is not None: %}
 	<a href="{% url 'profile' pk=user.id %}">Profile</a>
 	<a href="{% url 'update' pk=user.id %}">Update</a>
 	<a href="{% url 'logout' pk=user.id %}">Logout</a>

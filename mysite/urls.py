@@ -6,5 +6,5 @@ urlpatterns = [
     url(r'^polls/', include('polls.urls')),	
     url(r'^admin/', include(admin.site.urls)),
     url(r'^contacts/',include('contacts.urls')),
-    url(r'^login_new/', include('login_new.urls'))
+#    url(r'^login_new/', include('login_new.urls'))
 ]
