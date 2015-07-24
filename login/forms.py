@@ -24,9 +24,13 @@ class LoginForm(forms.ModelForm):
 		model=Profile
 		fields=['username','password']
 class SignupForm(forms.ModelForm):
+#	CHOICES=[('Male','Male'),('Female','Female')]
+#	gender=forms.ChoiceField(widget=forms.RadioSelect,choices=CHOICES)
 	class Meta:
 		model=Profile
-		fields=('name','username','password','gender','email','branch','about','profile_pic','cover_pic',)
+		fields=('name','username','password','email','branch','gender','about','profile_pic','cover_pic',)
+
+				
 class PasswordForm(forms.Form):
 	password=forms.CharField(widget=forms.PasswordInput())
 	new_pass=forms.CharField(widget=forms.PasswordInput())
